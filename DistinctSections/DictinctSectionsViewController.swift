@@ -25,12 +25,14 @@ class DictinctSectionsViewController: UIViewController {
     }
     
     private func configureLayout() -> UICollectionViewCompositionalLayout {
-        
-        return UICollectionViewCompositionalLayout { (section, _) -> NSCollectionLayoutSection? in
+
+        return UICollectionViewCompositionalLayout { (section, layoutEnvironment) -> NSCollectionLayoutSection? in
             
-            let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0)))
+            let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.2), heightDimension: .fractionalHeight(1.0)))
             
-            let group = NSCollectionLayoutGroup.horizontal(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(200)), subitem: item, count: section + 1)
+            let columns = layoutEnvironment.container.contentSize.width > 800 ?  (section + 1) * 2 : section + 1
+            
+            let group = NSCollectionLayoutGroup.horizontal(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(0.2)), subitem: item, count: columns)
             return NSCollectionLayoutSection(group: group)
             
         }
@@ -45,10 +47,10 @@ class DictinctSectionsViewController: UIViewController {
         
         var initialSnapshot = NSDiffableDataSourceSnapshot<Int, Int>()
         initialSnapshot.appendSections([1, 2, 3, 4])
-        initialSnapshot.appendItems(Array(1..<5), toSection: 1)
-        initialSnapshot.appendItems(Array(6..<10), toSection: 2)
-        initialSnapshot.appendItems(Array(11..<15), toSection: 3)
-        initialSnapshot.appendItems(Array(15..<20), toSection: 4)
+        initialSnapshot.appendItems(Array(1...10), toSection: 1)
+        initialSnapshot.appendItems(Array(11...20), toSection: 2)
+        initialSnapshot.appendItems(Array(21...30), toSection: 3)
+        initialSnapshot.appendItems(Array(31...40), toSection: 4)
         datasource.apply(initialSnapshot, animatingDifferences: true, completion: nil)
     }
 }

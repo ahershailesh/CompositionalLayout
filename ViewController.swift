@@ -8,7 +8,7 @@
 
 import UIKit
 
-var tutList = ["Mountain Search"]
+var tutList = ["Mountain Search", "Distinct Sections"]
 
 class ViewController: UIViewController {
 
@@ -63,6 +63,9 @@ extension ViewController : UICollectionViewDelegate {
         switch (indexPath.section, indexPath.row) {
         case (0, 0):
             let controller = MountainViewController(nibName: "MountainViewController", bundle: nil)
+            present(controller, animated: true, completion: nil)
+        case (0, 1):
+            let controller = DictinctSectionsViewController(nibName: "DictinctSectionsViewController", bundle: nil)
             present(controller, animated: true, completion: nil)
         default: break
         }
